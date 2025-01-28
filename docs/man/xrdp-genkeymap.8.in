@@ -1,0 +1,76 @@
+.TH "xrdp\-genkeymap" "8" "@PACKAGE_VERSION@" "xrdp team" ""
+.de URL
+. \\$2 \(laURL: \\$1 \(ra\\$3
+..
+.if \n[.g] .mso www.tmac
+
+.SH "NAME"
+\fBxrdp\-genkeymap\fR \- key map generator for XRDP
+
+.SH "SYNTAX"
+.B xrdp\-genkeymap
+.I [ options ] file
+
+.SH "DESCRIPTION"
+\fBxrdp\-genkeymap\fR extracts the current key map from the X server
+X session to generate a mapping from Remote Desktop Protocol (RDP)
+scan codes to X keysyms and Unicode code points.
+
+Before running this utility, make sure the keymap is correct, by issuing
+the correct \fIsetxkbmap\fP command(s).
+
+.SH OPTIONS
+.TP
+.B -k 'keycode_set'
+Inform \fBxrdp\-genkeymap\fR of the keycode set in operation (evdev or
+base), so that the correct scan code to keycode mapping table is selected
+to generate the keymap.
+
+If you omit this option, the XKB extension is asked to provide the
+name of the keycode set.
+
+.TP
+.B -c 'comment'
+Adds a comment to the top of the generated file.
+
+This option may be repeated more than once to add multiple comments to
+the top of the file.
+.TP
+.B outfile
+The key map information is stored in the file named \fIoutfile\fP.
+
+.SH "FILES"
+.TP
+.I @sysconfdir@/@sysconfsubdir@/km-XXXXXXXX.toml
+Files containing the keyboard mapping for country and language \fIXXXXXXXX\fP.
+\fIXXXXXXXX\fP is a 8 digit hexadecimal number, representing the \fIinput
+locale identifier\fP.
+
+The input locale identifier is passed from the RDP client when it connects.
+.RE
+
+.SH "AUTHORS"
+Jay Sorg <jsorg71@users.sourceforge.net>
+.br
+Simone Fedele <ilsimo@users.sourceforge.net>
+
+.SH "SEE ALSO"
+.BR xrdp (8),
+.BR xrdp-km.toml (5),
+.BR setxkbmap (1),
+.BR unicode (7)
+
+.PP
+Input locale identifiers on the
+.UR https://go.microsoft.com/fwlink/?LinkId=202824
+Microsoft website
+.UE
+.PP
+Description of Keyboard Input mapping on the
+.UR https://github.com/FreeRDP/FreeRDP/wiki/Keyboard
+FreeRDP wiki
+.UE
+.PP
+For more info on \fBxrdp\fR see
+.UR @xrdphomeurl@
+.UE
